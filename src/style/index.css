@@ -36,6 +36,7 @@
 
 .grayText {
 	color: #a0a0a0;
+	cursor: not-allowed;
 }
 
 .backgroundBlue {
@@ -65,8 +66,8 @@
 }
 
 .currentMonth:hover {
-	background-color: rgb(183, 180, 180);
-	color: white;
+	background-color: rgba(0, 0, 0, 0.1);
+	color: black;
 	transition-property: all;
 	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 	transition-duration: 150ms;

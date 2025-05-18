@@ -149,6 +149,19 @@ const EtCalendar = React.forwardRef(({
 
   const handleInputClick = (event) => {
     event.stopPropagation();
+    if (!showCalendar && selectedDate) {
+      const valueDate = dayjs(selectedDate);
+      if (calendarTypeInt) {
+        const ethiopianDay = toEthiopian(
+          valueDate.year(),
+          valueDate.month() + 1,
+          valueDate.date()
+        );
+        setEtToday(ethiopianDay);
+      } else {
+        setToday(valueDate);
+      }
+    }
     setShowCalendar((prev) => !prev);
   };
 

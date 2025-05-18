@@ -4,8 +4,7 @@ import { Container, Row, Col, Card, CardBody, CardTitle, Input } from 'reactstra
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
-  const [date, setDate] = useState(new Date("2025-05-19"));
-  console.log("date in example", date)
+  const [date, setDate] = useState(new Date("2025-06-19"));
   return (
     <Container className="py-4">
       <h1 className="mb-4">React Ethiopian Calendar Examples</h1>
@@ -22,8 +21,8 @@ function App() {
                     onChange={setDate}
                     calendarType={true}
                     lang="am"
-                  // minDate={new Date("2025-05-05")}
-                  // maxDate={new Date("2025-06-20")}
+                    minDate={new Date("2025-05-15")}
+                    maxDate={new Date("2025-06-20")}
                   // inputStyle={{ border: "1px solid red" }}
                   />
                 </Col>
@@ -44,7 +43,12 @@ function App() {
             <CardBody>
               <CardTitle tag="h5">Selected Date:</CardTitle>
               <pre className="bg-light p-3 rounded">
-                {date ? date.toLocaleString() : 'No date selected'}
+                {date ? new Date(date).toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric',
+                  timeZone: 'Africa/Addis_Ababa'
+                }) : 'No date selected'}
               </pre>
             </CardBody>
           </Card>

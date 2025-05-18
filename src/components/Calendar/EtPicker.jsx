@@ -12,6 +12,7 @@ import { GrFormNext, GrFormPrevious, GrNext, GrPrevious } from "react-icons/gr";
 import Lang from "../Lang.jsx";
 import cn from "../../utils/cn";
 import { toEthiopian } from "ethiopian-date";
+import dayjs from "dayjs";
 
 const EtPicker = ({
   minDateIn,
@@ -129,10 +130,9 @@ const EtPicker = ({
               {generateEthiopianDate(etToday[1], etToday[0]).map(
                 ({ day, isCurrentMonth, today, date }, index) => {
                   const disableFutureDate = disableFuture && isFutureDate(date);
-                  const isSelectedDate =
-                    selectedDate &&
-                    new Date(selectedDate).getTime() ===
-                    new Date(date).getTime();
+                  const isSelectedDate = selectedDate &&
+                    isCurrentMonth &&
+                    dayjs(selectedDate).format('YYYY-MM-DD') === dayjs(date).format('YYYY-MM-DD');
 
                   return (
                     <span
@@ -149,16 +149,21 @@ const EtPicker = ({
                           }
                         }
                       }}
-                      className=" rowHeight dayText rowHeight centerGrid borderTop"
+                      className="rowHeight dayText rowHeight centerGrid borderTop"
                     >
                       <span
+                        style={{
+                          cursor: (!isCurrentMonth || disabled || disableFutureDate ||
+                            (minDateIn && minDateIn > date) ||
+                            (maxDateIn && maxDateIn < date)) ? 'not-allowed' : 'pointer'
+                        }}
                         className={cn(
                           isCurrentMonth ? "" : "grayText",
                           minDateIn && minDateIn >= date ? "grayText" : "",
                           maxDateIn && maxDateIn <= date ? "grayText" : "",
                           disabled ? "grayText" : "",
                           disableFutureDate ? "grayText" : "",
-                          today ? "backgroundBlue " : "",
+                          today && !isSelectedDate ? "backgroundBlue " : "",
                           "dateWidthAndHeight centerGrid",
                           isCurrentMonth ? "currentMonth" : "",
                           isSelectedDate ? "selectedDate" : ""
