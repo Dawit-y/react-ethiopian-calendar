@@ -1,0 +1,32 @@
+# Development
+.git
+.github
+.vscode
+node_modules
+src
+.storybook
+storybook-static
+example
+
+# Build
+*.log
+*.tsbuildinfo
+
+# Config files
+.eslintrc*
+.prettierrc*
+.editorconfig
+.gitignore
+.env*
+*.config.js
+*.config.ts
+tsconfig*.json
+
+# Test
+coverage
+__tests__
+*.test.*
+*.spec.*
+*.stories.*
+*.svg
+vite.config.js

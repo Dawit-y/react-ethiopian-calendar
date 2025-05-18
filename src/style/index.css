@@ -1,0 +1,216 @@
+.calendarContainerEt {
+	min-width: 320px;
+	width: auto;
+}
+
+.gridSevenEt {
+	display: grid;
+	grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+
+.w-fullEt {
+	width: 100%;
+}
+
+.dayText {
+	font-size: 0.9rem;
+	color: #000;
+}
+
+.dayOfWeek {
+	font-size: 0.8rem;
+	color: #000;
+}
+
+.centerGrid {
+	display: grid;
+	place-content: center;
+}
+
+.rowHeight {
+	height: 2rem;
+}
+.borderTop {
+	border-top: 1px solid #eeeeee;
+}
+
+.grayText {
+	color: #a0a0a0;
+}
+
+.backgroundBlue {
+	background-color: transparent;
+	color: inherit;
+	border: 2px solid #0253a5;
+	border-radius: 50%;
+}
+
+.backgroundBlue:hover {
+	background-color: rgba(131, 181, 255, 0.1);
+}
+
+.dateWidthAndHeight {
+	width: 1.9rem;
+	height: 1.9rem;
+	border-radius: 50%;
+}
+
+.selectedDate {
+	background-color: #0253a5;
+	color: white;
+	transition-property: all;
+	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+	transition-duration: 150ms;
+	cursor: pointer;
+}
+
+.currentMonth:hover {
+	background-color: rgb(183, 180, 180);
+	color: white;
+	transition-property: all;
+	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+	transition-duration: 150ms;
+	cursor: pointer;
+}
+
+.monthButtons {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+.todayButton {
+	cursor: pointer;
+}
+.monthButton {
+	width: 20px;
+	height: 20px;
+	cursor: pointer;
+}
+
+.topActions {
+	font-weight: 700;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 0.5rem;
+	background-color: #0253a5;
+	color: white;
+	padding: 8px 18px;
+	border-radius: 3px;
+}
+
+.buttonStyle {
+	width: 15px;
+	height: 15px;
+	border-radius: 50%;
+	background-size: cover;
+	cursor: pointer;
+	border: none;
+	margin-right: 7px;
+}
+
+.buttonBackgroundEt {
+	background: linear-gradient(
+		to bottom,
+		rgb(7, 137, 48),
+		rgb(252, 209, 22),
+		rgb(206, 17, 38)
+	);
+	background-size: cover;
+}
+
+.buttonBackgroundEn {
+	background: linear-gradient(
+		0.2deg,
+		rgb(51, 204, 255) 4.8%,
+		rgb(51, 102, 255) 85.5%
+	);
+	background-size: cover;
+}
+
+.Cal {
+	min-width: 320px;
+	width: auto;
+	background-color: white;
+	padding: 10px;
+	border-radius: 5px;
+	margin-top: 0px;
+	user-select: none;
+	box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.datePickerContainerEt {
+	position: relative;
+	display: block;
+	border: 1px solid #ccc;
+	border-radius: 6px;
+	padding: 6px 10px;
+	background-color: white;
+	height: 100%;
+	min-width: 320px;
+	width: 100%;
+	box-sizing: border-box;
+}
+/* .datePickerContainerEt:hover {
+	border: 2px solid #83b5ff;
+}
+
+.datePickerContainerEt:focus-within {
+	border: 2px solid #83b5ff;
+} */
+/* .datePickerContainerEt:focus-within .calendarIcon {
+  color: #83b5ff;
+} */
+.blueOpen {
+	border: 2px solid #83b5ff;
+}
+
+.dateInputStyle {
+	flex-grow: 1;
+	width: 100%;
+	border: none;
+	outline: none;
+	padding: 8px 10px;
+	box-sizing: border-box;
+	user-select: none;
+	cursor: pointer;
+}
+
+.calendarIcon {
+	color: #555;
+	cursor: pointer;
+	margin-left: 20px;
+}
+
+.etIndividualInput {
+	border: 1px solid #ced4da;
+	padding: 10px;
+	border-radius: 4px;
+	margin-right: 8px;
+	font-size: 16px;
+	outline: none;
+
+	&:focus {
+		border-color: #3f51b5;
+		box-shadow: 0 0 0 0.2rem rgba(63, 81, 181, 0.25);
+	}
+}
+
+.etHeight {
+	min-height: 200px;
+}
+
+.etDateLabel {
+	font-size: 14px;
+	font-weight: 600;
+	margin-bottom: 5px;
+	color: #555;
+}
+.width100 {
+	width: 100%;
+}
+
+.no-focus-border:focus {
+	outline: none;
+	border: none;
+}
