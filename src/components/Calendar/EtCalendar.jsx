@@ -211,6 +211,7 @@ const EtCalendar = React.forwardRef(({
       <ElementPopper
         ref={calendarRef}
         zIndex={1000}
+        containerStyle={{ width: "100%" }}
         element={
           <Input
             ref={inputRef}
