@@ -13,7 +13,7 @@ export default defineConfig({
 	},
 	resolve: {
 		alias: {
-			"react-ethiopian-calendar": resolve(__dirname, "../src/index.js"),
+			"react-ethiopian-calendar": resolve(__dirname, ".."),
 		},
 	},
 });

@@ -21,7 +21,8 @@ const EtCalendar = React.forwardRef(({
   placeholder = false,
   lang,
   label = "Date",
-  inputStyle
+  inputStyle,
+  onBlur
 }, ref) => {
   let minDateIn = null;
   let maxDateIn = null;
@@ -226,6 +227,8 @@ const EtCalendar = React.forwardRef(({
             calendarTypeInt={calendarTypeInt}
             showCalendar={showCalendar}
             style={inputStyle}
+            disabled={disabled}
+            onBlur={onBlur}
           />
         }
         popper={

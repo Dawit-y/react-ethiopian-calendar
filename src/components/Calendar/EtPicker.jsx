@@ -159,8 +159,8 @@ const EtPicker = ({
                         }}
                         className={cn(
                           isCurrentMonth ? "" : "grayText",
-                          minDateIn && minDateIn >= date ? "grayText" : "",
-                          maxDateIn && maxDateIn <= date ? "grayText" : "",
+                          minDateIn && minDateIn > date ? "grayText" : "",
+                          maxDateIn && maxDateIn < date ? "grayText" : "",
                           disabled ? "grayText" : "",
                           disableFutureDate ? "grayText" : "",
                           today && !isSelectedDate ? "backgroundBlue " : "",

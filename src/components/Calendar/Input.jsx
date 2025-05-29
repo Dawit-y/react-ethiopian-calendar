@@ -13,6 +13,8 @@ const Input = forwardRef(({
   handleDateChange,
   calendarTypeInt,
   style,
+  disabled,
+  onBlur
 }, ref) => {
   const monthInputRef = useRef(null);
   const dayInputRef = useRef(null);
@@ -216,6 +218,11 @@ const Input = forwardRef(({
         ...style,
       }}
       ref={ref}
+      disabled={disabled}
+      onBlur={(e) => {
+        handleInputBlur(e);
+        onBlur?.(e);
+      }}
     >
       <div
         style={{
@@ -223,8 +230,14 @@ const Input = forwardRef(({
           alignItems: "center",
           justifyContent: "space-between",
           width: "100%",
+          opacity: disabled ? 0.6 : 1,
+          pointerEvents: disabled ? 'none' : 'auto'
         }}
-        onClick={handleInputClick}
+        onClick={(e) => {
+          if (!disabled) {
+            handleInputClick(e);
+          }
+        }}
       >
         <div
           style={{
@@ -245,15 +258,21 @@ const Input = forwardRef(({
             onMouseDown={handleInputMouseDown}
             onKeyDown={handleKeyDown}
             placeholder="DD"
-            onBlur={handleInputBlur}
+            onBlur={(e) => {
+              handleInputBlur(e);
+              onBlur?.(e);
+            }}
             maxLength="2"
             name="day"
+            disabled={disabled}
             className="dateInputStyle"
             style={{
               flex: 1,
               minWidth: "20px",
               textAlign: "left",
               padding: 0,
+              opacity: disabled ? 0.6 : 1,
+              cursor: disabled ? 'not-allowed' : 'text'
             }}
           />
           <span>/</span>
@@ -263,12 +282,16 @@ const Input = forwardRef(({
             value={date.month}
             onChange={handleInputChange}
             onFocus={handleInputFocus}
-            onBlur={handleInputBlur}
+            onBlur={(e) => {
+              handleInputBlur(e);
+              onBlur?.(e);
+            }}
             onMouseDown={handleInputMouseDown}
             onKeyDown={handleKeyDown}
             placeholder="MM"
             maxLength="2"
             name="month"
+            disabled={disabled}
             autoComplete="off"
             className="dateInputStyle"
             style={{
@@ -276,6 +299,8 @@ const Input = forwardRef(({
               minWidth: "30px",
               textAlign: "left",
               padding: 0,
+              opacity: disabled ? 0.6 : 1,
+              cursor: disabled ? 'not-allowed' : 'text'
             }}
           />
           <span>/</span>
@@ -287,9 +312,14 @@ const Input = forwardRef(({
             onMouseDown={handleInputMouseDown}
             onKeyDown={handleKeyDown}
             onFocus={handleInputFocus}
+            onBlur={(e) => {
+              handleInputBlur(e);
+              onBlur?.(e);
+            }}
             placeholder="YYYY"
             maxLength="4"
             name="year"
+            disabled={disabled}
             className="dateInputStyle"
             autoComplete="off"
             style={{
@@ -297,6 +327,8 @@ const Input = forwardRef(({
               minWidth: "30px",
               textAlign: "left",
               padding: 0,
+              opacity: disabled ? 0.6 : 1,
+              cursor: disabled ? 'not-allowed' : 'text'
             }}
           />
           {/* <span
@@ -308,7 +340,18 @@ const Input = forwardRef(({
             {calendarTypeInt ? "ET" : "GC"}
           </span> */}
         </div>
-        <div onClick={handleInputClick} style={{ cursor: "pointer", marginLeft: "8px" }}>
+        <div
+          onClick={(e) => {
+            if (!disabled) {
+              handleInputClick(e);
+            }
+          }}
+          style={{
+            cursor: disabled ? 'not-allowed' : 'pointer',
+            marginLeft: "8px",
+            opacity: disabled ? 0.6 : 1
+          }}
+        >
           <FiCalendar className="calendarIcon" />
         </div>
       </div>

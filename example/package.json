@@ -9,11 +9,13 @@
 		"preview": "vite preview"
 	},
 	"dependencies": {
+		"bootstrap": "^5.3.3",
+		"formik": "^2.4.6",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
 		"react-ethiopian-calendar": "file:..",
 		"reactstrap": "^9.2.2",
-		"bootstrap": "^5.3.3"
+		"yup": "^1.6.1"
 	},
 	"devDependencies": {
 		"@types/react": "^18.2.0",
