@@ -33,6 +33,17 @@ const EtCalendar = React.forwardRef(({
     maxDateIn = new Date(maxDate).setHours(0, 0, 0, 0);
   }
 
+  const [dateRangeError, setDateRangeError] = useState(null);
+
+  useEffect(() => {
+    if (minDateIn && maxDateIn && minDateIn > maxDateIn) {
+      setDateRangeError("Invalid date range: minimum date cannot be after maximum date");
+      console.warn("Invalid date range: minimum date cannot be after maximum date");
+    } else {
+      setDateRangeError(null);
+    }
+  }, [minDateIn, maxDateIn]);
+
   const [calendarTypeInt, setCalendarTypeInt] = useState(
     calendarType === undefined || calendarType === null ? true : calendarType
   );
@@ -150,6 +161,11 @@ const EtCalendar = React.forwardRef(({
 
   const handleInputClick = (event) => {
     event.stopPropagation();
+
+    if (dateRangeError) {
+      return;
+    }
+
     if (!showCalendar && selectedDate) {
       const valueDate = dayjs(selectedDate);
       if (calendarTypeInt) {
@@ -161,6 +177,18 @@ const EtCalendar = React.forwardRef(({
         setEtToday(ethiopianDay);
       } else {
         setToday(valueDate);
+      }
+    } else if (!showCalendar && minDateIn) {
+      const minDateValue = dayjs(minDateIn);
+      if (calendarTypeInt) {
+        const ethiopianDay = toEthiopian(
+          minDateValue.year(),
+          minDateValue.month() + 1,
+          minDateValue.date()
+        );
+        setEtToday(ethiopianDay);
+      } else {
+        setToday(minDateValue);
       }
     }
     setShowCalendar((prev) => !prev);
@@ -227,8 +255,12 @@ const EtCalendar = React.forwardRef(({
             handleDateChange={handleDateChange}
             calendarTypeInt={calendarTypeInt}
             showCalendar={showCalendar}
-            style={inputStyle}
-            disabled={disabled}
+            style={{
+              ...inputStyle,
+              borderColor: dateRangeError ? '#f46a6a' : inputStyle?.borderColor,
+              opacity: dateRangeError ? 0.6 : inputStyle?.opacity
+            }}
+            disabled={disabled || !!dateRangeError}
             onBlur={onBlur}
           />
         }
@@ -279,6 +311,11 @@ const EtCalendar = React.forwardRef(({
         active={showCalendar}
         position="bottom-start"
       />
+      {dateRangeError && (
+        <div style={{ color: '#f46a6a', fontSize: '12px', marginBottom: '4px' }}>
+          {dateRangeError}
+        </div>
+      )}
     </div>
   );
 });

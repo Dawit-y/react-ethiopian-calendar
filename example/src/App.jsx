@@ -52,19 +52,8 @@ function App() {
                           label="Date"
                           isRequired={true}
                           disabled={false}
-                          minDate={new Date("2025-05-20")}
-                          maxDate={new Date("2025-06-02")}
-                        />
-                      </Col>
-                      <Col className="col-md-6 mb-3">
-                        <DatePicker
-                          validation={validation}
-                          componentId="date"
-                          label="Date"
-                          isRequired={true}
-                          disabled={false}
-                          minDate={new Date("2025-05-20")}
-                          maxDate={new Date("2025-06-02")}
+                          minDate={new Date("2027-06-20")}
+                          maxDate={new Date("2025-07-02")}
                         />
                       </Col>
                       <Col className="col-md-6 mb-3">
