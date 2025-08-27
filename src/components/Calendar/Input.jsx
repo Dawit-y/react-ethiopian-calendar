@@ -17,6 +17,7 @@ const Input = forwardRef(
 			style,
 			disabled,
 			onBlur,
+			placeholder,
 			dateRange = false,
 			selectedDateRange = { startDate: null, endDate: null },
 		},
@@ -300,7 +301,7 @@ const Input = forwardRef(
 								whiteSpace: "nowrap",
 							}}
 						>
-							{formatDateRange() || "Select date range"}
+							{formatDateRange() || (typeof placeholder === "string" && placeholder) || "Select date range"}
 						</div>
 					) : (
 						// Single date input (existing logic)

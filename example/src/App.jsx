@@ -103,7 +103,7 @@ function App() {
                     calendarType={true}
                     lang="am"
                     dateRange={true}
-                    placeholder="Select date range"
+                    placeholder="Select date something"
                     onChange={(dateRange) => {
                       console.log('Selected date range:', dateRange);
                       if (dateRange && dateRange.startDate && dateRange.endDate) {
@@ -325,7 +325,7 @@ function App() {
                     calendarType={true}
                     lang="am"
                     dateRange={true}
-                    placeholder="Select date range"
+                    placeholder="Pick a Period ..."
                     onChange={(dateRange) => console.log('Selected date range:', dateRange)}
                   />
                 </Col>
