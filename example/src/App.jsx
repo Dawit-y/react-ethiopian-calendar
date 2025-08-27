@@ -1,10 +1,11 @@
 import { useState } from "react"
 import { useFormik } from 'formik';
 import DatePicker from './DatePicker';
+import DateRangePicker from './DateRangePicker';
 import * as Yup from 'yup';
 import { Container, Row, Col, Card, CardBody, CardTitle, Input, Label, FormFeedback, Button, Form, Modal, ModalBody } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { convertToEthiopian } from 'react-ethiopian-calendar';
+import { EtCalendar } from 'react-ethiopian-calendar';
 import './styles.css';  // Import the custom styles
 
 function App() {
@@ -13,10 +14,12 @@ function App() {
   const validationSchema = Yup.object().shape({
     name: Yup.string().required('Name is required'),
     date: Yup.string().required('Date is required'),
+    dateRange: Yup.string().required('Date range is required'),
   });
   const initialValues = {
     name: '',
     date: '',
+    dateRange: '',
   };
 
 
@@ -28,88 +31,162 @@ function App() {
     },
   });
 
-  console.log("ethio date", convertToEthiopian("2025-05-29"))
-  console.log("ethio date", convertToEthiopian("2025-05-20"))
-  console.log("ethio date", convertToEthiopian("2025-06-02"))
-
   return (
     <Container className="py-4">
-      <h1 className="mb-4"> Examples</h1>
-      <Button color="success" onClick={toggle}>Open Modal</Button>
-      <Modal isOpen={modal} toggle={toggle} className='custom-modal-xl'>
-        <ModalBody>
-          <Row>
-            <Col md={12} className="mb-4">
-              <Card>
-                <CardBody>
-                  <CardTitle tag="h5">Custom Styling with Col</CardTitle>
-                  <Form onSubmit={validation.handleSubmit}>
-                    <Row>
-                      <Col className="col-md-6 mb-3">
-                        <DatePicker
-                          validation={validation}
-                          componentId="date"
-                          label="Date"
-                          isRequired={true}
-                          disabled={false}
-                          minDate={new Date("2027-06-20")}
-                          maxDate={new Date("2025-07-02")}
-                        />
-                      </Col>
-                      <Col className="col-md-6 mb-3">
-                        <Label>
-                          {"Name"}
-                          <span className="text-danger">*</span>
-                        </Label>
-                        <Input
-                          name="name"
-                          type="text"
-                          placeholder={"Name"}
-                          onChange={validation.handleChange}
-                          onBlur={validation.handleBlur}
-                          value={validation.values.name || ""}
-                          invalid={
-                            validation.touched.name &&
-                              validation.errors.name
-                              ? true
-                              : false
-                          }
-                          maxLength={20}
-                        />
-                        {validation.touched.name &&
-                          validation.errors.name ? (
-                          <FormFeedback type="invalid">
-                            {validation.errors.name}
-                          </FormFeedback>
-                        ) : null}
-                      </Col>
-                    </Row>
-                    <Button className='mt-3' color="primary" type="submit" >Submit</Button>
-                  </Form>
-                </CardBody>
-              </Card>
-            </Col>
-          </Row>
+      <h1 className="mb-4"> Ethiopian Calendar Examples</h1>
 
-        </ModalBody>
-      </Modal>
-      {/* <Row className="mt-4">
+      {/* Single Date Picker Example */}
+      <Row className="mb-4">
         <Col>
           <Card>
             <CardBody>
-              <CardTitle tag="h5">Selected Date:</CardTitle>
-              <pre className="bg-light p-3 rounded">
-                {date ? new Date(date).toLocaleDateString('en-US', {
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric',
-                  timeZone: 'Africa/Addis_Ababa'
-                }) : 'No date selected'}
-              </pre>
+              <CardTitle tag="h5">Single Date Picker</CardTitle>
+              <DatePicker
+                validation={validation}
+                componentId="date"
+                label="Select Date"
+                isRequired={true}
+                disabled={false}
+                minDate={new Date("2020-01-01")}
+                maxDate={new Date("2030-12-31")}
+              />
             </CardBody>
           </Card>
         </Col>
-      </Row> */}
+      </Row>
+
+      {/* Date Range Picker Example */}
+      <Row className="mb-4">
+        <Col>
+          <Card>
+            <CardBody>
+              <CardTitle tag="h5">Date Range Picker</CardTitle>
+              <DateRangePicker
+                validation={validation}
+                componentId="dateRange"
+                label="Select Date Range"
+                isRequired={true}
+                disabled={false}
+                minDate={new Date("2020-01-01")}
+                maxDate={new Date("2030-12-31")}
+              />
+            </CardBody>
+          </Card>
+        </Col>
+      </Row>
+
+      {/* Form Example */}
+      <Row className="mb-4">
+        <Col>
+          <Card>
+            <CardBody>
+              <CardTitle tag="h5">Form with Both Pickers</CardTitle>
+              <Button color="success" onClick={toggle}>Open Form Modal</Button>
+              <Modal isOpen={modal} toggle={toggle} className='custom-modal-xl'>
+                <ModalBody>
+                  <Row>
+                    <Col md={12} className="mb-4">
+                      <Card>
+                        <CardBody>
+                          <CardTitle tag="h5">Form with Date Pickers</CardTitle>
+                          <Form onSubmit={validation.handleSubmit}>
+                            <Row>
+                              <Col className="col-md-6 mb-3">
+                                <DatePicker
+                                  validation={validation}
+                                  componentId="date"
+                                  label="Single Date"
+                                  isRequired={true}
+                                  disabled={false}
+                                  minDate={new Date("2020-01-01")}
+                                  maxDate={new Date("2030-12-31")}
+                                />
+                              </Col>
+                              <Col className="col-md-6 mb-3">
+                                <DateRangePicker
+                                  validation={validation}
+                                  componentId="dateRange"
+                                  label="Date Range"
+                                  isRequired={true}
+                                  disabled={false}
+                                  minDate={new Date("2020-01-01")}
+                                  maxDate={new Date("2030-12-31")}
+                                />
+                              </Col>
+                            </Row>
+                            <Row>
+                              <Col className="col-md-6 mb-3">
+                                <Label>
+                                  {"Name"}
+                                  <span className="text-danger">*</span>
+                                </Label>
+                                <Input
+                                  name="name"
+                                  type="text"
+                                  placeholder={"Name"}
+                                  onChange={validation.handleChange}
+                                  onBlur={validation.handleBlur}
+                                  value={validation.values.name || ""}
+                                  invalid={
+                                    validation.touched.name &&
+                                      validation.errors.name
+                                      ? true
+                                      : false
+                                  }
+                                  maxLength={20}
+                                />
+                                {validation.touched.name &&
+                                  validation.errors.name ? (
+                                  <FormFeedback type="invalid">
+                                    {validation.errors.name}
+                                  </FormFeedback>
+                                ) : null}
+                              </Col>
+                            </Row>
+                            <Button className='mt-3' color="primary" type="submit" >Submit</Button>
+                          </Form>
+                        </CardBody>
+                      </Card>
+                    </Col>
+                  </Row>
+                </ModalBody>
+              </Modal>
+            </CardBody>
+          </Card>
+        </Col>
+      </Row>
+
+      {/* Direct Usage Example */}
+      <Row className="mb-4">
+        <Col>
+          <Card>
+            <CardBody>
+              <CardTitle tag="h5">Direct Component Usage</CardTitle>
+              <Row>
+                <Col md={6}>
+                  <Label>Single Date (Ethiopian Calendar)</Label>
+                  <EtCalendar
+                    calendarType={true}
+                    lang="am"
+                    placeholder="Select date"
+                    onChange={(date) => console.log('Selected date:', date)}
+                  />
+                </Col>
+                <Col md={6}>
+                  <Label>Date Range (Ethiopian Calendar)</Label>
+                  <EtCalendar
+                    calendarType={true}
+                    lang="am"
+                    dateRange={true}
+                    placeholder="Select date range"
+                    onChange={(dateRange) => console.log('Selected date range:', dateRange)}
+                  />
+                </Col>
+              </Row>
+            </CardBody>
+          </Card>
+        </Col>
+      </Row>
     </Container>
   );
 }

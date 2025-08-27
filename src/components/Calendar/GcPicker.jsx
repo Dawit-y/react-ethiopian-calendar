@@ -2,11 +2,13 @@ import { useEffect, useRef, useState } from "react";
 import { generateDate, months } from "../../utils/calendar";
 import { GrFormNext, GrFormPrevious, GrNext, GrPrevious } from "react-icons/gr";
 import cn from "../../utils/cn";
+import dayjs from "dayjs";
 
 const GcPicker = ({
   minDateIn,
   maxDateIn,
   selectedDate,
+  selectedDateRange,
   toggleCalendarType,
   today,
   setToday,
@@ -14,9 +16,9 @@ const GcPicker = ({
   disableFuture,
   disabled,
   handleDateChange,
-
   isFutureDate,
   currentDate,
+  dateRange = false,
 }) => {
   const [showYear, setShowYear] = useState(false);
   const yearsContainerRef = useRef(null);
@@ -33,6 +35,55 @@ const GcPicker = ({
         yearItemOffsetTop - containerHeight / 2 + yearItemHeight / 2;
     }
   }, [showYear]);
+
+  // Helper function to determine if a date is within the selected range
+  const isDateInRange = (date) => {
+    if (!dateRange || !selectedDateRange?.startDate || !selectedDateRange?.endDate) {
+      return false;
+    }
+
+    try {
+      const dateObj = dayjs(date);
+      const startDate = dayjs(selectedDateRange.startDate);
+      const endDate = dayjs(selectedDateRange.endDate);
+
+      // Check if all dates are valid
+      if (!dateObj.isValid() || !startDate.isValid() || !endDate.isValid()) {
+        return false;
+      }
+
+      return dateObj.isSameOrAfter(startDate, 'day') && dateObj.isSameOrBefore(endDate, 'day');
+    } catch (error) {
+      console.warn('Error checking date range:', error);
+      return false;
+    }
+  };
+
+  // Helper function to determine if a date is the start or end of the range
+  const getRangePosition = (date) => {
+    if (!dateRange || !selectedDateRange?.startDate || !selectedDateRange?.endDate) {
+      return null;
+    }
+
+    try {
+      const dateObj = dayjs(date);
+      const startDate = dayjs(selectedDateRange.startDate);
+      const endDate = dayjs(selectedDateRange.endDate);
+
+      // Check if all dates are valid
+      if (!dateObj.isValid() || !startDate.isValid() || !endDate.isValid()) {
+        return null;
+      }
+
+      if (dateObj.isSame(startDate, 'day')) return 'start';
+      if (dateObj.isSame(endDate, 'day')) return 'end';
+      return null;
+    } catch (error) {
+      console.warn('Error checking range position:', error);
+      return null;
+    }
+  };
+
   return (
     <>
       <div className="calendarContainerEt">
@@ -97,6 +148,13 @@ const GcPicker = ({
                     selectedDate &&
                     new Date(selectedDate).getTime() ===
                     new Date(date).getTime();
+
+                  // Date range logic
+                  const isInRange = isDateInRange(date);
+                  const rangePosition = getRangePosition(date);
+                  const isRangeStart = rangePosition === 'start';
+                  const isRangeEnd = rangePosition === 'end';
+
                   return (
                     <span
                       onClick={() => {
@@ -121,10 +179,14 @@ const GcPicker = ({
                           maxDateIn && maxDateIn <= date ? "grayText" : "",
                           disabled ? "grayText" : "",
                           disableFutureDate ? "grayText" : "",
-                          today ? "backgroundBlue " : "",
+                          today && !isSelectedDate && !isInRange ? "backgroundBlue " : "",
                           "dateWidthAndHeight centerGrid",
                           isCurrentMonth ? "currentMonth" : "",
-                          isSelectedDate ? "selectedDate" : ""
+                          isSelectedDate ? "selectedDate" : "",
+                          // Date range styling
+                          isInRange ? "dateInRange" : "",
+                          isRangeStart ? "rangeStart" : "",
+                          isRangeEnd ? "rangeEnd" : ""
                         )}
                       >
                         {date.date()}

@@ -65,6 +65,35 @@
 	cursor: pointer;
 }
 
+/* Date range picker styles */
+.dateInRange {
+	background-color: rgba(2, 83, 165, 0.1);
+	color: #0253a5;
+	border: 1px solid rgba(2, 83, 165, 0.3);
+	transition-property: all;
+	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+	transition-duration: 150ms;
+	cursor: pointer;
+}
+
+.dateInRange:hover {
+	background-color: rgba(2, 83, 165, 0.2);
+}
+
+.rangeStart {
+	background-color: #0253a5;
+	color: white;
+	border: 2px solid #0253a5;
+	font-weight: bold;
+}
+
+.rangeEnd {
+	background-color: #0253a5;
+	color: white;
+	border: 2px solid #0253a5;
+	font-weight: bold;
+}
+
 .currentMonth:hover {
 	background-color: rgba(0, 0, 0, 0.1);
 	color: black;
@@ -97,6 +126,7 @@
 	background-color: #0253a5;
 	color: white;
 	padding: 8px 18px;
+	border-radius: 3px;
 	border-radius: 3px;
 }
 
