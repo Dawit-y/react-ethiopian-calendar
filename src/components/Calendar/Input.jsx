@@ -257,6 +257,7 @@ const Input = forwardRef(
 				className={`datePickerContainerEt`}
 				style={{
 					width: "100%",
+					minWidth: 0,
 					padding: "",
 					...style,
 				}}
@@ -273,6 +274,7 @@ const Input = forwardRef(
 						alignItems: "center",
 						justifyContent: "space-between",
 						width: "100%",
+						minWidth: 0,
 						opacity: disabled ? 0.6 : 1,
 						pointerEvents: disabled ? "none" : "auto",
 					}}
@@ -289,10 +291,13 @@ const Input = forwardRef(
 								display: "flex",
 								alignItems: "center",
 								gap: "4px",
-								width: "70%",
-								minWidth: "200px",
+								flex: 1,
+								minWidth: 0,
 								color: selectedDateRange.startDate ? "#333" : "#999",
 								fontSize: "14px",
+								overflow: "hidden",
+								textOverflow: "ellipsis",
+								whiteSpace: "nowrap",
 							}}
 						>
 							{formatDateRange() || "Select date range"}
@@ -304,8 +309,9 @@ const Input = forwardRef(
 								display: "flex",
 								alignItems: "center",
 								gap: "4px",
-								width: "30%",
-								minWidth: "150px",
+								flex: "0 1 auto",
+								minWidth: 0,
+								whiteSpace: "nowrap",
 							}}
 						>
 							<input
@@ -327,8 +333,7 @@ const Input = forwardRef(
 								disabled={disabled}
 								className="dateInputStyle"
 								style={{
-									flex: 1,
-									minWidth: "20px",
+									width: "2.9ch",
 									textAlign: "left",
 									padding: 0,
 									opacity: disabled ? 0.6 : 1,
@@ -355,8 +360,7 @@ const Input = forwardRef(
 								autoComplete="off"
 								className="dateInputStyle"
 								style={{
-									flex: 1,
-									minWidth: "30px",
+									width: "3.8ch",
 									textAlign: "left",
 									padding: 0,
 									opacity: disabled ? 0.6 : 1,
@@ -383,8 +387,7 @@ const Input = forwardRef(
 								className="dateInputStyle"
 								autoComplete="off"
 								style={{
-									flex: 2,
-									minWidth: "30px",
+									width: "4.4ch",
 									textAlign: "left",
 									padding: 0,
 									opacity: disabled ? 0.6 : 1,

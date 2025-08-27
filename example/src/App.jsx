@@ -3,7 +3,7 @@ import { useFormik } from 'formik';
 import DatePicker from './DatePicker';
 import DateRangePicker from './DateRangePicker';
 import * as Yup from 'yup';
-import { Container, Row, Col, Card, CardBody, CardTitle, Input, Label, FormFeedback, Button, Form, Modal, ModalBody } from 'reactstrap';
+import { Container, Row, Col, Card, CardBody, CardTitle, Input, Label, FormFeedback, Button, Form, Modal, ModalBody, InputGroup } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { EtCalendar } from 'react-ethiopian-calendar';
 import './styles.css';  // Import the custom styles
@@ -22,7 +22,6 @@ function App() {
     dateRange: '',
   };
 
-
   const validation = useFormik({
     initialValues,
     validationSchema,
@@ -31,9 +30,157 @@ function App() {
     },
   });
 
+  // Sample search parameters for testing
+  const [searchParams, setSearchParams] = useState({});
+  const [textValue, setTextValue] = useState('');
+  const [selectValue, setSelectValue] = useState('');
+
+  const handleSearchKey = (key, value) => {
+    setSearchParams(prev => ({ ...prev, [key]: value }));
+  };
+
+  const inputStyles = { width: "100%", maxWidth: "100%" };
+
   return (
     <Container className="py-4">
-      <h1 className="mb-4"> Ethiopian Calendar Examples</h1>
+      <h1 className="mb-4">Ethiopian Calendar Examples</h1>
+
+      {/* Advanced Search Grid Layout Test */}
+      <Row className="mb-4">
+        <Col>
+          <Card>
+            <CardBody>
+              <CardTitle tag="h5">Advanced Search Grid Layout Test</CardTitle>
+              <p className="text-muted mb-3">
+                Testing the EtCalendar date range component in a grid layout similar to AdvancedSearch component
+              </p>
+
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))",
+                  gap: "1rem",
+                }}
+              >
+                {/* Text Input */}
+                <div>
+                  <Label>Text Search</Label>
+                  <Input
+                    type="text"
+                    placeholder="Search text"
+                    value={textValue}
+                    onChange={(e) => {
+                      setTextValue(e.target.value);
+                      handleSearchKey('textSearch', e.target.value);
+                    }}
+                    style={inputStyles}
+                  />
+                </div>
+
+                {/* Dropdown Input */}
+                <div>
+                  <Label>Dropdown Search</Label>
+                  <Input
+                    type="select"
+                    value={selectValue}
+                    onChange={(e) => {
+                      setSelectValue(e.target.value);
+                      handleSearchKey('dropdownSearch', e.target.value);
+                    }}
+                    style={inputStyles}
+                  >
+                    <option value="">Select option</option>
+                    <option value="option1">Option 1</option>
+                    <option value="option2">Option 2</option>
+                    <option value="option3">Option 3</option>
+                  </Input>
+                </div>
+
+                {/* Date Range Input - This is what we're testing */}
+                <div>
+                  <Label>Date Range (Ethiopian)</Label>
+                  <EtCalendar
+                    calendarType={true}
+                    lang="am"
+                    dateRange={true}
+                    placeholder="Select date range"
+                    onChange={(dateRange) => {
+                      console.log('Selected date range:', dateRange);
+                      if (dateRange && dateRange.startDate && dateRange.endDate) {
+                        handleSearchKey('date_start', dateRange.startDate.format('YYYY-MM-DD'));
+                        handleSearchKey('date_end', dateRange.endDate.format('YYYY-MM-DD'));
+                      } else {
+                        handleSearchKey('date_start', '');
+                        handleSearchKey('date_end', '');
+                      }
+                    }}
+                    style={inputStyles}
+                  />
+                </div>
+
+                {/* Another Text Input */}
+                <div>
+                  <Label>Another Text Field</Label>
+                  <Input
+                    type="text"
+                    placeholder="Another field"
+                    style={inputStyles}
+                    onChange={(e) => handleSearchKey('anotherField', e.target.value)}
+                  />
+                </div>
+                {/* Another Text Input */}
+                <div>
+                  <Label>Another Text Field</Label>
+                  <Input
+                    type="text"
+                    placeholder="Another field"
+                    style={inputStyles}
+                    onChange={(e) => handleSearchKey('anotherField', e.target.value)}
+                  />
+                </div>
+                {/* Another Text Input */}
+                <div>
+                  <Label>Another Text Field</Label>
+                  <Input
+                    type="text"
+                    placeholder="Another field"
+                    style={inputStyles}
+                    onChange={(e) => handleSearchKey('anotherField', e.target.value)}
+                  />
+                </div>
+                {/* Another Text Input */}
+                <div>
+                  <Label>Another Text Field</Label>
+                  <Input
+                    type="text"
+                    placeholder="Another field"
+                    style={inputStyles}
+                    onChange={(e) => handleSearchKey('anotherField', e.target.value)}
+                  />
+                </div>
+                {/* Another Text Input */}
+                <div>
+                  <Label>Another Text Field</Label>
+                  <Input
+                    type="text"
+                    placeholder="Another field"
+                    style={inputStyles}
+                    onChange={(e) => handleSearchKey('anotherField', e.target.value)}
+                  />
+                </div>
+              </div>
+
+              {/* Search Parameters Display */}
+              <div className="mt-3 p-3 bg-light rounded">
+                <h6>Current Search Parameters:</h6>
+                <pre className="mb-0">
+                  {JSON.stringify(searchParams, null, 2)}
+                </pre>
+              </div>
+            </CardBody>
+          </Card>
+        </Col>
+      </Row>
 
       {/* Single Date Picker Example */}
       <Row className="mb-4">
@@ -191,4 +338,4 @@ function App() {
   );
 }
 
-export default App; 
+export default App;

@@ -31,6 +31,7 @@ const EtCalendar = React.forwardRef(
 			lang = "en",
 			label = "Date",
 			inputStyle,
+			style,
 			onBlur,
 			dateRange = false,
 		},
@@ -114,87 +115,87 @@ const EtCalendar = React.forwardRef(
 			[currentDate]
 		);
 
-	const handleDateChange = useCallback(
-		(newDate) => {
-			const normalizedDate = normalizeDate(newDate);
-			if (!normalizedDate) return;
+		const handleDateChange = useCallback(
+			(newDate) => {
+				const normalizedDate = normalizeDate(newDate);
+				if (!normalizedDate) return;
 
-			// Apply min/max constraints
-			let constrainedDate = normalizedDate;
-			if (maxDateIn && constrainedDate.isAfter(maxDateIn)) {
-				constrainedDate = maxDateIn;
-			} else if (minDateIn && constrainedDate.isBefore(minDateIn)) {
-				constrainedDate = minDateIn;
-			}
+				// Apply min/max constraints
+				let constrainedDate = normalizedDate;
+				if (maxDateIn && constrainedDate.isAfter(maxDateIn)) {
+					constrainedDate = maxDateIn;
+				} else if (minDateIn && constrainedDate.isBefore(minDateIn)) {
+					constrainedDate = minDateIn;
+				}
 
-			if (dateRange) {
-				let newRange = { ...selectedDateRange };
+				if (dateRange) {
+					let newRange = { ...selectedDateRange };
 
-				if (!newRange.startDate) {
-					// First click - set start date
-					newRange.startDate = constrainedDate;
-					newRange.endDate = null;
-				} else if (!newRange.endDate) {
-					if (constrainedDate.isSame(newRange.startDate, "day")) {
-						return;
-					} else if (constrainedDate.isBefore(newRange.startDate)) {
-						// If end date is before start date, swap them
-						newRange.endDate = newRange.startDate;
+					if (!newRange.startDate) {
+						// First click - set start date
 						newRange.startDate = constrainedDate;
+						newRange.endDate = null;
+					} else if (!newRange.endDate) {
+						if (constrainedDate.isSame(newRange.startDate, "day")) {
+							return;
+						} else if (constrainedDate.isBefore(newRange.startDate)) {
+							// If end date is before start date, swap them
+							newRange.endDate = newRange.startDate;
+							newRange.startDate = constrainedDate;
+						} else {
+							newRange.endDate = constrainedDate;
+						}
+
+						// Close calendar after selecting valid end date
+						setShowCalendar(false);
 					} else {
-						newRange.endDate = constrainedDate;
+						// Reset and start new range
+						newRange.startDate = constrainedDate;
+						newRange.endDate = null;
 					}
 
-					// Close calendar after selecting valid end date
+					setSelectedDateRange(newRange);
+					onChange?.(newRange);
+
+					// Update calendar navigation to show the selected date
+					if (calendarTypeInt) {
+						const ethiopianDate = toEthiopian(
+							constrainedDate.year(),
+							constrainedDate.month() + 1,
+							constrainedDate.date()
+						);
+						setEtToday(ethiopianDate);
+					} else {
+						setToday(constrainedDate);
+					}
+				} else {
+					// Single date selection
+					setSelectedDate(constrainedDate);
 					setShowCalendar(false);
-				} else {
-					// Reset and start new range
-					newRange.startDate = constrainedDate;
-					newRange.endDate = null;
-				}
+					onChange?.(constrainedDate);
 
-				setSelectedDateRange(newRange);
-				onChange?.(newRange);
-
-				// Update calendar navigation to show the selected date
-				if (calendarTypeInt) {
-					const ethiopianDate = toEthiopian(
-						constrainedDate.year(),
-						constrainedDate.month() + 1,
-						constrainedDate.date()
-					);
-					setEtToday(ethiopianDate);
-				} else {
-					setToday(constrainedDate);
+					// Update calendar navigation
+					if (calendarTypeInt) {
+						const ethiopianDate = toEthiopian(
+							constrainedDate.year(),
+							constrainedDate.month() + 1,
+							constrainedDate.date()
+						);
+						setEtToday(ethiopianDate);
+					} else {
+						setToday(constrainedDate);
+					}
 				}
-			} else {
-				// Single date selection
-				setSelectedDate(constrainedDate);
-				setShowCalendar(false);
-				onChange?.(constrainedDate);
-
-				// Update calendar navigation
-				if (calendarTypeInt) {
-					const ethiopianDate = toEthiopian(
-						constrainedDate.year(),
-						constrainedDate.month() + 1,
-						constrainedDate.date()
-					);
-					setEtToday(ethiopianDate);
-				} else {
-					setToday(constrainedDate);
-				}
-			}
-		},
-		[
-			dateRange,
-			selectedDateRange,
-			onChange,
-			calendarTypeInt,
-			minDateIn,
-			maxDateIn,
-		]
-	);
+			},
+			[
+				dateRange,
+				selectedDateRange,
+				onChange,
+				calendarTypeInt,
+				minDateIn,
+				maxDateIn,
+			]
+		);
 
 		const toggleCalendarType = useCallback((e) => {
 			e.stopPropagation();
@@ -304,11 +305,12 @@ const EtCalendar = React.forwardRef(
 		}, [dateRange, selectedDateRange, selectedDate, calendarTypeInt]);
 
 		const inputDate = formatDateForInput();
+		const combinedInputStyle = { ...style, ...inputStyle };
 
 		return (
 			<div
 				ref={ref}
-				style={{ width: inputStyle?.width || (fullWidth ? "100%" : "auto") }}
+				style={{ width: combinedInputStyle?.width || (fullWidth ? "100%" : "auto") }}
 			>
 				<ElementPopper
 					ref={calendarRef}
@@ -325,15 +327,15 @@ const EtCalendar = React.forwardRef(
 							lang={lang}
 							label={label}
 							date={inputDate}
-							setDate={() => {}} // This should be handled through the date picker
+							setDate={() => { }} // This should be handled through the date picker
 							handleDateChange={handleDateChange}
 							calendarTypeInt={calendarTypeInt}
 							showCalendar={showCalendar}
 							style={{
-								...inputStyle,
+								...combinedInputStyle,
 								borderColor: dateRangeError
 									? "#f46a6a"
-									: inputStyle?.borderColor,
+									: combinedInputStyle?.borderColor,
 								opacity: dateRangeError ? 0.6 : 1,
 							}}
 							disabled={disabled || !!dateRangeError}
@@ -346,13 +348,13 @@ const EtCalendar = React.forwardRef(
 						showCalendar && (
 							<div
 								style={{
-									width: inputStyle?.width || "100%",
-									minWidth: "320px",
+									width: combinedInputStyle?.width || "100%",
+									minWidth: combinedInputStyle?.minWidth || "220px",
 								}}
 							>
 								<div
 									className="Cal"
-									style={{ width: "100%", minWidth: "320px" }}
+									style={{ width: "100%", minWidth: combinedInputStyle?.minWidth || "220px" }}
 								>
 									{calendarTypeInt ? (
 										<EtPicker
