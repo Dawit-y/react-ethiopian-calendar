@@ -1,0 +1,11 @@
+.custom-modal-xl {
+	max-width: 90% !important;
+	width: 1600px !important;
+	margin: 1.75rem auto !important;
+}
+
+/* Ensure the modal content is properly sized */
+.custom-modal-xl .modal-content {
+	width: 100%;
+	margin: 0 auto;
+}
