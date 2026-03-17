@@ -86,6 +86,7 @@ function EtDatePicker({
           maxDate={maxDate}
           disabled={disabled}
           inputStyle={hasError ? { border: "1px solid #f46a6a" } : {}}
+          primaryColor="#e85d04"
         />
       </div>
       {hasError && (

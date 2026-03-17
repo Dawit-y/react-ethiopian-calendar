@@ -8,6 +8,7 @@ A React component library for Ethiopian calendar date selection with support for
 - **Date Range Picker**: Select date ranges with visual highlighting
 - **Dual Calendar Support**: Both Ethiopian (ET) and Gregorian (GC) calendar types
 - **Language Support**: Amharic and English language options
+- **Custom Primary Color**: Pass any hex color via the `primaryColor` prop to theme the entire calendar
 - **Controlled Component**: Full control over value and onChange behavior
 - **Form Integration**: Works seamlessly with form libraries like Formik
 - **Customizable Styling**: Flexible styling options and CSS customization
@@ -85,6 +86,7 @@ function MyComponent() {
 | `label` | `string` | `"Date"` | Label for the input |
 | `inputStyle` | `object` | - | Custom styles for the input |
 | `onBlur` | `function` | - | Callback when input loses focus |
+| `primaryColor` | `string` | `"#0253a5"` | Primary accent color for the calendar (any valid CSS hex color) |
 
 ### Date Range Specific Props
 
@@ -150,6 +152,28 @@ function MyForm() {
   );
 }
 ```
+
+## Theming / Custom Primary Color
+
+Pass any hex color string to `primaryColor` to replace the default blue (`#0253a5`) across the entire calendar UI — including the header background, selected date highlight, and date range shading.
+
+```jsx
+// Warm orange theme
+<EtCalendar
+  value={selectedDate}
+  onChange={setSelectedDate}
+  primaryColor="#e85d04"
+/>
+
+// Forest green theme
+<EtCalendar
+  value={selectedDate}
+  onChange={setSelectedDate}
+  primaryColor="#2d6a4f"
+/>
+```
+
+The color is applied via a scoped CSS custom property (`--et-primary-color`), so multiple calendars on the same page can each have a different color without global CSS conflicts.
 
 ## Styling
 

@@ -34,6 +34,7 @@ const EtCalendar = React.forwardRef(
 			style,
 			onBlur,
 			dateRange = false,
+			primaryColor = "#0253a5",
 		},
 		ref
 	) => {
@@ -310,7 +311,10 @@ const EtCalendar = React.forwardRef(
 		return (
 			<div
 				ref={ref}
-				style={{ width: combinedInputStyle?.width || (fullWidth ? "100%" : "auto") }}
+				style={{
+					"--et-primary-color": primaryColor,
+					width: combinedInputStyle?.width || (fullWidth ? "100%" : "auto"),
+				}}
 			>
 				<ElementPopper
 					ref={calendarRef}
