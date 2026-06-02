@@ -130,33 +130,29 @@
 	border-radius: 3px;
 }
 
-.buttonStyle {
-	width: 15px;
-	height: 15px;
-	border-radius: 50%;
-	background-size: cover;
+.etSwapButton {
+	display: inline-flex;
+	align-items: center;
+	gap: 3px;
+	margin-right: 8px;
+	padding: 2px 7px;
+	border: 1px solid rgba(255, 255, 255, 0.6);
+	border-radius: 4px;
+	background: rgba(255, 255, 255, 0.15);
+	color: #fff;
+	font-size: 11px;
+	font-weight: 600;
+	line-height: 1;
 	cursor: pointer;
-	border: none;
-	margin-right: 7px;
+	transition: background 0.15s ease;
 }
 
-.buttonBackgroundEt {
-	background: linear-gradient(
-		to bottom,
-		rgb(7, 137, 48),
-		rgb(252, 209, 22),
-		rgb(206, 17, 38)
-	);
-	background-size: cover;
+.etSwapButton:hover {
+	background: rgba(255, 255, 255, 0.32);
 }
 
-.buttonBackgroundEn {
-	background: linear-gradient(
-		0.2deg,
-		rgb(51, 204, 255) 4.8%,
-		rgb(51, 102, 255) 85.5%
-	);
-	background-size: cover;
+.etSwapButton svg {
+	font-size: 14px;
 }
 
 .Cal {
@@ -213,6 +209,25 @@
 	color: #555;
 	cursor: pointer;
 	margin-left: 20px;
+}
+
+.etClearButton {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0;
+	margin-left: 4px;
+	border: none;
+	background: transparent;
+	color: #9aa0a6;
+	font-size: 16px;
+	line-height: 1;
+	cursor: pointer;
+	transition: color 0.15s ease;
+}
+
+.etClearButton:hover {
+	color: var(--et-primary-color, #555);
 }
 
 .etIndividualInput {

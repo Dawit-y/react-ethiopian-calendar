@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Questions & Discussions
+    url: https://github.com/OWNER/react-ethiopian-calendar/discussions
+    about: Have a question or want to discuss an idea? Please open a discussion instead of an issue.

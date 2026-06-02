@@ -1,0 +1,66 @@
+name: Feature request
+description: Suggest an idea or enhancement for react-ethiopian-calendar
+title: "[Feature]: "
+labels: ["enhancement", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting an improvement! Please describe your idea so we can understand the use case.
+
+  - type: checkboxes
+    id: prerequisites
+    attributes:
+      label: Prerequisites
+      options:
+        - label: I have searched existing issues and this feature has not already been requested.
+          required: true
+
+  - type: dropdown
+    id: component
+    attributes:
+      label: Related export
+      description: Which part of the public API would this affect?
+      options:
+        - EtCalendar
+        - EtTimePicker
+        - convertToEthiopian
+        - Types / TypeScript
+        - New export
+        - Other / Not sure
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem statement
+      description: What problem are you trying to solve? Is your request related to a frustration or limitation?
+      placeholder: "I'm always frustrated when ..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed solution
+      description: Describe the behavior or API you'd like to see. Include prop names or signatures if relevant.
+      render: tsx
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Any alternative solutions or workarounds you've considered.
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional context
+      description: Mockups, links, or any other context about the feature request.
+    validations:
+      required: false
