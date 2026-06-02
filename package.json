@@ -2,6 +2,14 @@
 	"name": "react-ethiopian-calendar",
 	"private": false,
 	"version": "2.0.0",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Dawit-y/react-ethiopian-calendar.git"
+	},
+	"homepage": "https://github.com/Dawit-y/react-ethiopian-calendar#readme",
+	"bugs": {
+		"url": "https://github.com/Dawit-y/react-ethiopian-calendar/issues"
+	},
 	"description": "A typed React component library for Ethiopian (and Gregorian) calendar date and time selection: single-date and date-range pickers, Amharic/English support, and custom theming.",
 	"type": "module",
 	"main": "dist/index.cjs",
