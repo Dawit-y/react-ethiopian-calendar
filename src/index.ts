@@ -13,5 +13,6 @@ export type {
 	SingleDateInput,
 	SingleDateValue,
 	Language,
+	PickerSize,
 	EthiopianTuple,
 } from "./types";

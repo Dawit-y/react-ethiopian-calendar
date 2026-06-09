@@ -190,6 +190,26 @@
 /* .datePickerContainerEt:focus-within .calendarIcon {
   color: #83b5ff;
 } */
+/* Input field size modifiers. These control only the input field height
+   (vertical padding + text size), never the calendar number grid. */
+.datePickerContainerEt--sm {
+	padding-top: 3px;
+	padding-bottom: 3px;
+	font-size: 13px;
+}
+
+.datePickerContainerEt--md {
+	padding-top: 7px;
+	padding-bottom: 7px;
+	font-size: 14px;
+}
+
+.datePickerContainerEt--lg {
+	padding-top: 12px;
+	padding-bottom: 12px;
+	font-size: 16px;
+}
+
 .blueOpen {
 	border: 2px solid #83b5ff;
 }

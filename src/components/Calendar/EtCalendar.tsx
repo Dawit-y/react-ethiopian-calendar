@@ -17,6 +17,7 @@ import type {
 	DateRangeValue,
 	EthiopianTuple,
 	Language,
+	PickerSize,
 	SingleDateInput,
 	SingleDateValue,
 } from "../../types";
@@ -81,6 +82,11 @@ export interface EtCalendarProps {
 	dateRange?: boolean;
 	/** Accent color (any valid CSS color). Defaults to `"#0253a5"`. */
 	primaryColor?: string;
+	/**
+	 * Size of the input field height: `"sm"` (compact), `"md"` (default), or
+	 * `"lg"` (large). Only affects the input field, not the calendar grid.
+	 */
+	size?: PickerSize;
 }
 
 const EMPTY_SEGMENTS: DateSegments = { day: "", month: "", year: "" };
@@ -121,6 +127,7 @@ const EtCalendar = forwardRef<HTMLDivElement, EtCalendarProps>(
 			primaryColor = "#0253a5",
 			allowClear = true,
 			allowCalendarSwap = false,
+			size = "md",
 		},
 		ref,
 	) => {
@@ -382,6 +389,7 @@ const EtCalendar = forwardRef<HTMLDivElement, EtCalendarProps>(
 							selectedDateRange={selectedDateRange}
 							allowClear={allowClear}
 							onClear={handleClear}
+							size={size}
 						/>
 					}
 					popper={

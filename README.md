@@ -200,6 +200,7 @@ const handleRange = (value: Dayjs | DateRangeValue) => {
 | `primaryColor` | `string` | `'#0253a5'` | Accent color (any valid CSS color). |
 | `allowClear` | `boolean` | `true` | Show a clear (×) button that resets the value to `null`. |
 | `allowCalendarSwap` | `boolean` | `false` | Show a header button to switch between the Ethiopian and Gregorian views. The committed value is unchanged — only the display calendar swaps. |
+| `size` | `PickerSize` (`'sm' \| 'md' \| 'lg'`) | `'md'` | Input field size. Controls only the input field height — the calendar number grid is unaffected. |
 
 `EtCalendar` is a `forwardRef` component; the ref is forwarded to the wrapper `HTMLDivElement`.
 

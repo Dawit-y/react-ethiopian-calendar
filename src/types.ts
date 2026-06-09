@@ -5,6 +5,12 @@ import type { Dayjs } from "dayjs";
 export type Language = "am" | "en" | "or";
 
 /**
+ * Size of the picker's input field, controlling its height (not the calendar
+ * grid): `"sm"` (compact), `"md"` (default), or `"lg"` (large).
+ */
+export type PickerSize = "sm" | "md" | "lg";
+
+/**
  * A `[year, month, day]` tuple as produced/consumed by the `ethiopian-date`
  * package. Month is 1-based (1–13, where 13 is Pagume).
  */
