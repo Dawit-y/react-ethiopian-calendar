@@ -4,7 +4,8 @@ import { toGregorian, toEthiopian } from "ethiopian-date";
 import { FiCalendar, FiX } from "react-icons/fi";
 import { checkLeapYear } from "../../utils/EthiopianCalendar";
 import { checkLeapYearGc } from "../../utils/calendar";
-import type { DateRangeValue } from "../../types";
+import cn from "../../utils/cn";
+import type { DateRangeValue, PickerSize } from "../../types";
 
 /** The three editable date segments, held as raw strings while typing. */
 export interface DateSegments {
@@ -33,7 +34,23 @@ export interface InputProps {
 	allowClear?: boolean | undefined;
 	/** Called when the clear button is pressed. */
 	onClear?: ((event: React.MouseEvent) => void) | undefined;
+	/** Input field size, controlling its height. Defaults to `"md"`. */
+	size?: PickerSize | undefined;
 }
+
+/** Maps a {@link PickerSize} to its container modifier class. */
+const SIZE_CLASS: Record<PickerSize, string> = {
+	sm: "datePickerContainerEt--sm",
+	md: "datePickerContainerEt--md",
+	lg: "datePickerContainerEt--lg",
+};
+
+/** Font size used for the range-mode summary text, per {@link PickerSize}. */
+const SIZE_RANGE_FONT: Record<PickerSize, string> = {
+	sm: "13px",
+	md: "14px",
+	lg: "16px",
+};
 
 const padStart2 = (value: string): string => value.padStart(2, "0");
 
@@ -52,6 +69,7 @@ const Input = forwardRef<HTMLDivElement, InputProps>(
 			selectedDateRange = { startDate: null, endDate: null },
 			allowClear = true,
 			onClear,
+			size = "md",
 		},
 		ref,
 	) => {
@@ -244,7 +262,7 @@ const Input = forwardRef<HTMLDivElement, InputProps>(
 
 		return (
 			<div
-				className="datePickerContainerEt"
+				className={cn("datePickerContainerEt", SIZE_CLASS[size])}
 				style={{ width: "100%", minWidth: 0, ...style }}
 				ref={ref}
 				onBlur={(e) => {
@@ -275,7 +293,7 @@ const Input = forwardRef<HTMLDivElement, InputProps>(
 								flex: 1,
 								minWidth: 0,
 								color: selectedDateRange.startDate ? "#333" : "#999",
-								fontSize: "14px",
+								fontSize: SIZE_RANGE_FONT[size],
 								overflow: "hidden",
 								textOverflow: "ellipsis",
 								whiteSpace: "nowrap",

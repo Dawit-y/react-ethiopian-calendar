@@ -103,6 +103,75 @@ function App() {
 				</CardBody>
 			</Card>
 
+			<Card className="mb-4">
+				<CardBody>
+					<CardTitle tag="h5" className="mb-3">
+						Input field sizes
+					</CardTitle>
+					<p className="text-muted">
+						The <code>size</code> prop changes the input field height only
+						(<code>sm</code> / <code>md</code> / <code>lg</code>); the calendar
+						number grid stays the same. Defaults to <code>md</code>.
+					</p>
+					<Row>
+						<Col md={4} className="mb-3">
+							<Label>Small (sm)</Label>
+							<EtCalendar
+								size="sm"
+								lang="am"
+								fullWidth
+								placeholder="Select date"
+								onChange={(d) => console.log("sm:", d)}
+							/>
+						</Col>
+						<Col md={4} className="mb-3">
+							<Label>Medium (md, default)</Label>
+							<EtCalendar
+								size="md"
+								lang="am"
+								fullWidth
+								placeholder="Select date"
+								onChange={(d) => console.log("md:", d)}
+							/>
+						</Col>
+						<Col md={4} className="mb-3">
+							<Label>Large (lg)</Label>
+							<EtCalendar
+								size="lg"
+								lang="am"
+								fullWidth
+								placeholder="Select date"
+								onChange={(d) => console.log("lg:", d)}
+							/>
+						</Col>
+					</Row>
+					<Row>
+						<Col md={6} className="mb-3">
+							<Label>Range picker — small</Label>
+							<EtCalendar
+								size="sm"
+								dateRange
+								lang="en"
+								fullWidth
+								placeholder="Select range"
+								onChange={(d) => console.log("range sm:", d)}
+							/>
+						</Col>
+						<Col md={6} className="mb-3">
+							<Label>Range picker — large</Label>
+							<EtCalendar
+								size="lg"
+								dateRange
+								lang="en"
+								fullWidth
+								placeholder="Select range"
+								onChange={(d) => console.log("range lg:", d)}
+							/>
+						</Col>
+					</Row>
+				</CardBody>
+			</Card>
+
 			<Card>
 				<CardBody>
 					<CardTitle tag="h5" className="mb-3">
